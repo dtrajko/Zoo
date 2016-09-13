@@ -2,4 +2,6 @@
     <string name="app_name">Zoo</string>
     <string name="hello_world">Hello World!</string>
     <string name="menu_item_title">Menu Item Title</string>
+    <string name="drawer_opened">Select an Item</string>
+    <string name="drawer_closed">Zoo</string>
 </resources>
