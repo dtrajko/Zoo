@@ -1,4 +1,4 @@
-package com.dtrajko.zoo;
+package com.dtrajko.zoo.activities;
 
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -13,10 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.dtrajko.zoo.R;
+import com.dtrajko.zoo.events.DrawerSectionItemClickedEvent;
+import com.dtrajko.zoo.utils.EventBus;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.otto.Subscribe;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        EventBus.getInstance().register(this);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -125,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+        EventBus.getInstance().unregister(this);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -140,5 +147,10 @@ public class MainActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    @Subscribe
+    public void onDrawerSectionItemClickEvent(DrawerSectionItemClickedEvent event) {
+        Toast.makeText(this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
     }
 }
