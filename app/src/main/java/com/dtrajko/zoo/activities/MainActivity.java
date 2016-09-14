@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 
 import com.dtrajko.zoo.R;
 import com.dtrajko.zoo.events.DrawerSectionItemClickedEvent;
+import com.dtrajko.zoo.fragments.ExhibitsListFragment;
+import com.dtrajko.zoo.fragments.GalleryFragment;
+import com.dtrajko.zoo.fragments.ZooMapFragment;
 import com.dtrajko.zoo.utils.EventBus;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -27,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
+    private String mCurrentFragmentTitle;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -64,9 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
 
+        displayInitialFragment();
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void displayInitialFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, ExhibitsListFragment.getInstance()).commit();
+        mCurrentFragmentTitle = "Exhibits";
     }
 
     @Override
@@ -151,6 +164,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onDrawerSectionItemClickEvent(DrawerSectionItemClickedEvent event) {
+
+        mDrawerLayout.closeDrawers();
+
+        if (event == null || TextUtils.isEmpty(event.section) || event.section.equalsIgnoreCase(mCurrentFragmentTitle)) {
+            return;
+        }
+
         Toast.makeText(this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
+
+        if (event.section.equalsIgnoreCase("maps")) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, ZooMapFragment.getInstance()).commit();
+        } else if (event.section.equalsIgnoreCase("gallery")) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, GalleryFragment.getInstance()).commit();
+        } else if (event.section.equalsIgnoreCase("exhibits")) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, ExhibitsListFragment.getInstance()).commit();
+        } else {
+            return;
+        }
+
+        mCurrentFragmentTitle = event.section;
     }
 }
