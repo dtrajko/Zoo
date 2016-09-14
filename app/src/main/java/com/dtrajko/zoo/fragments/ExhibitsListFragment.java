@@ -7,6 +7,7 @@ import android.support.v4.app.ListFragment;
 import android.util.Log;
 
 import com.dtrajko.zoo.R;
+import com.dtrajko.zoo.adapters.ExhibitsAdapter;
 import com.dtrajko.zoo.models.Animal;
 import com.dtrajko.zoo.utils.AnimalApiInterface;
 import java.util.List;
@@ -21,6 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ExhibitsListFragment extends ListFragment {
 
+    private ExhibitsAdapter mAdapter;
+
     public static ExhibitsListFragment getInstance() {
 
         ExhibitsListFragment fragment;
@@ -30,8 +33,16 @@ public class ExhibitsListFragment extends ListFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setListShown(false);
+        mAdapter = new ExhibitsAdapter(getActivity(), 0);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.exhibits_feed))
@@ -47,9 +58,13 @@ public class ExhibitsListFragment extends ListFragment {
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
                 if (response.isSuccessful()) {
                     for (Animal animal : response.body()) {
-                        Log.e("Zoo", animal.getName());
-                        Log.e("Zoo", animal.getThumbnail());
+                        mAdapter.add(animal);
+                        // Log.e("Zoo", animal.getName());
+                        // Log.e("Zoo", animal.getThumbnail());
                     }
+                    mAdapter.notifyDataSetChanged();
+                    setListAdapter(mAdapter);
+                    setListShown(true);
                 } else {
                     Log.e("Zoo", "Retrofit response not successful: " + response.toString());
                 }
