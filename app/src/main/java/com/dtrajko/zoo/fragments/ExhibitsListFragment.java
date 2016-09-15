@@ -1,12 +1,16 @@
 package com.dtrajko.zoo.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 import com.dtrajko.zoo.R;
+import com.dtrajko.zoo.activities.ExhibitDetailActivity;
 import com.dtrajko.zoo.adapters.ExhibitsAdapter;
 import com.dtrajko.zoo.models.Animal;
 import com.dtrajko.zoo.utils.AnimalApiInterface;
@@ -75,5 +79,13 @@ public class ExhibitsListFragment extends ListFragment {
                 Log.e("Zoo", "Retrofit error" + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Intent intent = new Intent(getActivity(), ExhibitDetailActivity.class);
+        intent.putExtra(ExhibitDetailActivity.EXTRA_ANIMAL, mAdapter.getItem(position));
+        startActivity(intent);
     }
 }
