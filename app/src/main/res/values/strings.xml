@@ -8,4 +8,5 @@
     <string name="section_gallery">Gallery</string>
     <string name="section_map">Map</string>
     <string name="exhibits_feed">https://dl.dropboxusercontent.com/u/4352189/</string>
+    <string name="gallery_feed">https://dl.dropboxusercontent.com/u/4352189/</string>
 </resources>
