@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
 
-        if (event.section.equalsIgnoreCase("maps")) {
+        if (event.section.equalsIgnoreCase("map")) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, ZooMapFragment.getInstance()).commit();
         } else if (event.section.equalsIgnoreCase("gallery")) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, GalleryFragment.getInstance()).commit();

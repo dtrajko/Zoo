@@ -1,5 +1,6 @@
 package com.dtrajko.zoo.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.dtrajko.zoo.R;
+import com.dtrajko.zoo.activities.GalleryDetailActivity;
 import com.dtrajko.zoo.adapters.ExhibitsAdapter;
 import com.dtrajko.zoo.adapters.GalleryImageAdapter;
 import com.dtrajko.zoo.models.Animal;
@@ -27,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Dejan Trajkovic on 9/13/2016.
  */
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private GridView mGridView;
     private GalleryImageAdapter mAdapter;
@@ -50,6 +53,8 @@ public class GalleryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mGridView = (GridView) view.findViewById(R.id.grid);
+        mGridView.setOnItemClickListener(this);
+        mGridView.setDrawSelectorOnTop(true);
     }
 
     @Override
@@ -89,5 +94,17 @@ public class GalleryFragment extends Fragment {
                 Log.e("Zoo", "Retrofit error" + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        GalleryImage image = (GalleryImage) parent.getItemAtPosition(position);
+        Intent intent = new Intent(getActivity(), GalleryDetailActivity.class);
+        intent.putExtra(GalleryDetailActivity.EXTRA_IMAGE, image.getImage());
+        intent.putExtra(GalleryDetailActivity.EXTRA_CAPTION, image.getCaption());
+
+        Log.e("Zoo", "GalleryFragment onItemClick");
+
+        startActivity(intent);
     }
 }

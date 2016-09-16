@@ -2,6 +2,7 @@ package com.dtrajko.zoo.activities;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -109,8 +110,8 @@ public class ExhibitDetailActivity extends AppCompatActivity {
 
         Toast.makeText(this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
 
-        if (event.section.equalsIgnoreCase("maps")) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, ZooMapFragment.getInstance()).commit();
+        if (event.section.equalsIgnoreCase("map")) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, (Fragment) ZooMapFragment.getInstance()).commit();
         } else if (event.section.equalsIgnoreCase("gallery")) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, GalleryFragment.getInstance()).commit();
         } else if (event.section.equalsIgnoreCase("exhibits")) {
