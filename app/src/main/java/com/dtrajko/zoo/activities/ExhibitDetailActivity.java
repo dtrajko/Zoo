@@ -30,9 +30,6 @@ import com.squareup.picasso.Picasso;
 public class ExhibitDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_ANIMAL = "extra_animal";
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mActionBarDrawerToggle;
-    private String mCurrentFragmentTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,27 +46,6 @@ public class ExhibitDetailActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_opened, R.string.drawer_closed) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.drawer_opened);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.drawer_closed);
-            }
-        };
-
-        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
-
-        displayInitialFragment();
-
         Animal animal = getIntent().getExtras().getParcelable(EXTRA_ANIMAL);
 
         TextView species = (TextView) findViewById(R.id.species);
@@ -80,43 +56,5 @@ public class ExhibitDetailActivity extends AppCompatActivity {
         description.setText(animal.getDescription());
 
         Picasso.with(this).load(animal.getImage()).into(image);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getInstance().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getInstance().unregister(this);
-    }
-
-    private void displayInitialFragment() {
-        getSupportFragmentManager().beginTransaction().commit();
-        mCurrentFragmentTitle = getString(R.string.exhibit_details);
-    }
-
-    @Subscribe
-    public void onDrawerSectionItemClickEvent(DrawerSectionItemClickedEvent event) {
-
-        mDrawerLayout.closeDrawers();
-        if (event == null || TextUtils.isEmpty(event.section) || event.section.equalsIgnoreCase(mCurrentFragmentTitle)) {
-            return;
-        }
-        Toast.makeText(this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
-
-        if (event.section.equalsIgnoreCase(getString(R.string.section_map))) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, (Fragment) ZooMapFragment.getInstance()).commit();
-        } else if (event.section.equalsIgnoreCase(getString(R.string.section_gallery))) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, GalleryFragment.getInstance()).commit();
-        } else if (event.section.equalsIgnoreCase(getString(R.string.section_exhibits))) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, ExhibitsListFragment.getInstance()).commit();
-        } else {
-            return;
-        }
-        mCurrentFragmentTitle = event.section;
     }
 }

@@ -29,9 +29,11 @@ public class DrawerNavigationListView extends ListView implements AdapterView.On
         super(context, attrs, defStyleAttr);
 
         DrawerNavigationListAdapter adapter = new DrawerNavigationListAdapter(getContext(), 0);
+
+        adapter.add("");
         adapter.add(getContext().getString(R.string.section_exhibits));
         adapter.add(getContext().getString(R.string.section_gallery));
-        adapter.add(getContext().getString(R.string.section_map));
+        adapter.add(getContext().getString(R.string.section_map ));
 
         setAdapter(adapter);
         setOnItemClickListener(this);

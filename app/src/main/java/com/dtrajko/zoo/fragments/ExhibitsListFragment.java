@@ -2,9 +2,12 @@ package com.dtrajko.zoo.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -46,6 +49,13 @@ public class ExhibitsListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         setListShown(false);
+
+        getListView().setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
+        getListView().setDivider(new ColorDrawable(Color.TRANSPARENT));
+        getListView().setDividerHeight(dpToPx(8));
+        getListView().setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        getListView().setClipToPadding(true);
+
         mAdapter = new ExhibitsAdapter(getActivity(), 0);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -85,5 +95,11 @@ public class ExhibitsListFragment extends ListFragment {
         Intent intent = new Intent(getActivity(), ExhibitDetailActivity.class);
         intent.putExtra(ExhibitDetailActivity.EXTRA_ANIMAL, mAdapter.getItem(position));
         startActivity(intent);
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
     }
 }
