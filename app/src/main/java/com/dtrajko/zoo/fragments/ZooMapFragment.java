@@ -99,16 +99,15 @@ public class ZooMapFragment extends SupportMapFragment implements OnMapReadyCall
         streams.enqueue(new Callback<List<Pin>>() {
             @Override
             public void onResponse(Call<List<Pin>> call, Response<List<Pin>> response) {
-                if (response.isSuccessful()) {
-                    for (Pin pin : response.body()) {
-                        MarkerOptions options = new MarkerOptions().position(new LatLng(pin.getLatitude(), pin.getLongitude()));
-                        options.title(pin.getName());
-                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                        map.addMarker(options);
-                    }
-                    // mAdapter.notifyDataSetChanged();
-                } else {
+                if (response.body() == null || response.body().isEmpty() || !isAdded()) {
                     Log.e("Zoo", "Retrofit response not successful: " + response.toString());
+                    return;
+                }
+                for (Pin pin : response.body()) {
+                    MarkerOptions options = new MarkerOptions().position(new LatLng(pin.getLatitude(), pin.getLongitude()));
+                    options.title(pin.getName());
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    map.addMarker(options);
                 }
             }
 

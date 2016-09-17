@@ -4,11 +4,12 @@
     <string name="menu_item_title">Menu Item Title</string>
     <string name="drawer_opened">Select an Item</string>
     <string name="drawer_closed">Zoo</string>
-    <string name="section_exhibits">Exhibits</string>
-    <string name="section_gallery">Gallery</string>
-    <string name="section_map">Map</string>
     <string name="exhibits_feed">https://dl.dropboxusercontent.com/u/4352189/ZooApp/</string>
     <string name="gallery_feed">https://dl.dropboxusercontent.com/u/4352189/ZooApp/</string>
     <string name="pins_feed">https://dl.dropboxusercontent.com/u/4352189/ZooApp/</string>
     <string name="google_maps_key">AIzaSyCX-TNS7t4AEwnzwkrkaI5oTuXH9R91DmY</string>
+    <string name="section_exhibits">Exhibits</string>
+    <string name="section_gallery">Gallery</string>
+    <string name="section_map">Map</string>
+    <string name="exhibit_details">Exhibit Details</string>
 </resources>

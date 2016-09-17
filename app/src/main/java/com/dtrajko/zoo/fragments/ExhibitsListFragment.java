@@ -60,18 +60,16 @@ public class ExhibitsListFragment extends ListFragment {
         streams.enqueue(new Callback<List<Animal>>() {
             @Override
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
-                if (response.isSuccessful()) {
-                    for (Animal animal : response.body()) {
-                        mAdapter.add(animal);
-                        // Log.e("Zoo", animal.getName());
-                        // Log.e("Zoo", animal.getThumbnail());
-                    }
-                    mAdapter.notifyDataSetChanged();
-                    setListAdapter(mAdapter);
-                    setListShown(true);
-                } else {
+                if (response.body() == null || response.body().isEmpty() || !isAdded()) {
                     Log.e("Zoo", "Retrofit response not successful: " + response.toString());
+                    return;
                 }
+                for (Animal animal : response.body()) {
+                    mAdapter.add(animal);
+                }
+                mAdapter.notifyDataSetChanged();
+                setListAdapter(mAdapter);
+                setListShown(true);
             }
 
             @Override

@@ -76,17 +76,14 @@ public class GalleryFragment extends Fragment implements AdapterView.OnItemClick
         streams.enqueue(new Callback<List<GalleryImage>>() {
             @Override
             public void onResponse(Call<List<GalleryImage>> call, Response<List<GalleryImage>> response) {
-                if (response.isSuccessful()) {
-                    for (GalleryImage galleryImage : response.body()) {
-                        mAdapter.add(galleryImage);
-                        // Log.e("Zoo", galleryImage.getThumbnail());
-                        // Log.e("Zoo", galleryImage.getImage());
-                        // Log.e("Zoo", galleryImage.getCaption());
-                    }
-                    mAdapter.notifyDataSetChanged();
-                } else {
+                if (response.body() == null || response.body().isEmpty() || !isAdded()) {
                     Log.e("Zoo", "Retrofit response not successful: " + response.toString());
+                    return;
                 }
+                for (GalleryImage galleryImage : response.body()) {
+                    mAdapter.add(galleryImage);
+                }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override

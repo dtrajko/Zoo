@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayInitialFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, ExhibitsListFragment.getInstance()).commit();
-        mCurrentFragmentTitle = "Exhibits";
+        mCurrentFragmentTitle = getString(R.string.section_exhibits);
     }
 
     @Override
@@ -173,16 +173,15 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
 
-        if (event.section.equalsIgnoreCase("map")) {
+        if (event.section.equalsIgnoreCase(getString(R.string.section_map))) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, ZooMapFragment.getInstance()).commit();
-        } else if (event.section.equalsIgnoreCase("gallery")) {
+        } else if (event.section.equalsIgnoreCase(getString(R.string.section_gallery))) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, GalleryFragment.getInstance()).commit();
-        } else if (event.section.equalsIgnoreCase("exhibits")) {
+        } else if (event.section.equalsIgnoreCase(getString(R.string.section_exhibits))) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, ExhibitsListFragment.getInstance()).commit();
         } else {
             return;
         }
-
         mCurrentFragmentTitle = event.section;
     }
 }

@@ -29,9 +29,7 @@ public class DrawerNavigationListAdapter extends ArrayAdapter<String> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
         holder.title.setText( getItem( position ) );
-
         return convertView;
     }
 
