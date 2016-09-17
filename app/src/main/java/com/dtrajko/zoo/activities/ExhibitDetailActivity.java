@@ -103,11 +103,9 @@ public class ExhibitDetailActivity extends AppCompatActivity {
     public void onDrawerSectionItemClickEvent(DrawerSectionItemClickedEvent event) {
 
         mDrawerLayout.closeDrawers();
-
         if (event == null || TextUtils.isEmpty(event.section) || event.section.equalsIgnoreCase(mCurrentFragmentTitle)) {
             return;
         }
-
         Toast.makeText(this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
 
         if (event.section.equalsIgnoreCase(getString(R.string.section_map))) {
