@@ -4,9 +4,9 @@
     <string name="menu_item_title">Menu Item Title</string>
     <string name="drawer_opened">Select an Item</string>
     <string name="drawer_closed">Zoo</string>
-    <string name="exhibits_feed">https://dl.dropboxusercontent.com/u/4352189/ZooApp/</string>
-    <string name="gallery_feed">https://dl.dropboxusercontent.com/u/4352189/ZooApp/</string>
-    <string name="pins_feed">https://dl.dropboxusercontent.com/u/4352189/ZooApp/</string>
+    <string name="exhibits_feed">https://raw.githubusercontent.com/dtrajko/Zoo/master/app/src/main/assets/</string>
+    <string name="gallery_feed">https://raw.githubusercontent.com/dtrajko/Zoo/master/app/src/main/assets/</string>
+    <string name="pins_feed">https://raw.githubusercontent.com/dtrajko/Zoo/master/app/src/main/assets/</string>
     <string name="google_maps_key">AIzaSyCX-TNS7t4AEwnzwkrkaI5oTuXH9R91DmY</string>
     <string name="section_exhibits">Exhibits</string>
     <string name="section_gallery">Gallery</string>

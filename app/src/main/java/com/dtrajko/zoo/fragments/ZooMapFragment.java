@@ -71,7 +71,7 @@ public class ZooMapFragment extends SupportMapFragment implements OnMapReadyCall
                 .build();
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(position), null);
-        map.setMapType( GoogleMap.MAP_TYPE_NORMAL);
+        map.setMapType( GoogleMap.MAP_TYPE_HYBRID);
         map.getUiSettings().setZoomControlsEnabled(true);
 
         MarkerOptions options = new MarkerOptions().position(mLatLng);
